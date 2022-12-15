@@ -1,5 +1,5 @@
 ﻿Tetris
-1.0.0.0
+
 
 winexe
 C#
@@ -12,7 +12,7 @@ TRACE;DEBUG;NET;NET5_0;NETCOREAPP
 C:\Users\Administrador\Desktop\experimento\PlayBox_7996-master\DENNIS_ARIEL_RIVADENEIRA_PROAÑO\Tetris\App.xaml
 11407045341
 
-17-178087028
+15-291106109
 193-426881426
 MainWindow.xaml;
 

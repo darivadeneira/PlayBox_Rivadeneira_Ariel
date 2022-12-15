@@ -1,10 +1,57 @@
-using System.Windows;
+using System.Collections.Generic;
 
-[assembly: ThemeInfo(
-    ResourceDictionaryLocation.None, //where theme specific resource dictionaries are located
-                                     //(used if a resource is not found in the page,
-                                     // or application resource dictionaries)
-    ResourceDictionaryLocation.SourceAssembly //where the generic resource dictionary is located
-                                              //(used if a resource is not found in the page,
-                                              // app, or any theme specific resource dictionaries)
-)]
+namespace Tetris
+{
+    public abstract class Block
+    {
+        protected abstract Position[][] Tiles { get; }
+        protected abstract Position StartOffset { get; }
+        public abstract int Id { get; }
+
+        private int rotationState;
+        private Position offset;
+
+        public Block()
+        {
+            offset = new Position(StartOffset.Row, StartOffset.Column);
+        }
+
+        public IEnumerable<Position> TilePositions()
+        {
+            foreach (Position p in Tiles[rotationState])
+            {
+                yield return new Position(p.Row + offset.Row, p.Column + offset.Column);
+            }
+        }
+
+        public void RotateCW()
+        {
+            rotationState = (rotationState + 1) % Tiles.Length;
+        }
+
+        public void RotateCCW()
+        {
+            if (rotationState == 0)
+            {
+                rotationState = Tiles.Length - 1;
+            }
+            else
+            {
+                rotationState--;
+            }
+        }
+
+        public void Move(int rows, int columns)
+        {
+            offset.Row += rows;
+            offset.Column += columns;
+        }
+
+        public void Reset()
+        {
+            rotationState = 0;
+            offset.Row = StartOffset.Row;
+            offset.Column = StartOffset.Column;
+        }
+    }
+}
